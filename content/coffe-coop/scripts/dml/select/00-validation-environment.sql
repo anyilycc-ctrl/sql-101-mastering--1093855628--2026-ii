@@ -1,6 +1,6 @@
--- #################################################
--- #    COFFEE COOP - ENVIRONMENT VALIDATION       #
--- #################################################
+-- ##################################################
+-- #     COFFEE COOP - ENVIRONMENT VALIDATION       #
+-- ##################################################
 -- RUN IN coffee_coop_db - cc_admin
 
 -- 01. Tables per schema
@@ -14,13 +14,14 @@ ORDER BY table_schema;
 -- 02. Constraints per type
 -- Expected: CHECK 35 · FOREIGN KEY 17 · PRIMARY KEY 15 · UNIQUE 16
 SELECT
-CASE c.contype
-    WHEN 'p' THEN 'PRIMARY KEY'
-    WHEN 'f' THEN 'FOREIGN KEY'
-    WHEN 'u' THEN 'UNIQUE'
-    WHEN 'c' THEN 'CHECK'
-END AS constraint_type,
-COUNT(*) AS total
+    CASE c.contype
+        WHEN 'p' THEN 'PRIMARY KEY'
+        WHEN 'f' THEN 'FOREIGN KEY'
+        WHEN 'u' THEN 'UNIQUE'
+        WHEN 'c' THEN 'CHECK'
+        ELSE 'OTHER'
+    END AS constraint_type,
+    COUNT(*) AS total
 FROM pg_constraint c
 JOIN pg_namespace n ON n.oid = c.connamespace
 WHERE n.nspname IN ('geo', 'farm', 'buy', 'pay')
