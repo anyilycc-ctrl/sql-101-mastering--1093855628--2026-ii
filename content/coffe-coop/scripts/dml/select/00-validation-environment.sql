@@ -24,5 +24,17 @@ COUNT(*) AS total
 FROM pg_constraint c
 JOIN pg_namespace n ON n.oid = c.connamespace
 WHERE n.nspname IN ('geo', 'farm', 'buy', 'pay')
+<<<<<<< HEAD
 GROUP BY c.contype
 ORDER BY c.contype;
+=======
+GROUP BY 
+    CASE c.contype
+        WHEN 'p' THEN 'PRIMARY KEY'
+        WHEN 'f' THEN 'FOREIGN KEY'
+        WHEN 'u' THEN 'UNIQUE'
+        WHEN 'c' THEN 'CHECK'
+        ELSE 'OTHER'
+    END
+ORDER BY constraint_type;
+>>>>>>> 0fe2fe0 (feat(coffee-coop): add environment validation queries)
