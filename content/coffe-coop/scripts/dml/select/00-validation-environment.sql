@@ -37,4 +37,7 @@ GROUP BY
         ELSE 'OTHER'
     END
 ORDER BY constraint_type;
+<<<<<<< HEAD
 >>>>>>> 0fe2fe0 (feat(coffee-coop): add environment validation queries)
+=======
+>>>>>>> 6862c02 (validacion)
